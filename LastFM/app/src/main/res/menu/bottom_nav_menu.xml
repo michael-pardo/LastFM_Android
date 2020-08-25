@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/topArtistFragment"
+        android:title="@string/topartist"
+        android:icon="@drawable/user_input"
+        />
+
+    <item
+        android:id="@+id/topTrackFragment"
+        android:title="@string/toprack"
+        android:icon="@drawable/ic_playcount"
+        />
+
+</menu>

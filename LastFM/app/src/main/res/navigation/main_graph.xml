@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/topArtistFragment">
+
+    <fragment
+        android:id="@+id/topArtistFragment"
+        android:name="com.mistpaag.lastfm.trainee.views.main.topArtist.TopArtistFragment"
+        android:label="top_artist_fragment"
+        tools:layout="@layout/top_artist_fragment" />
+    <fragment
+        android:id="@+id/topTrackFragment"
+        android:name="com.mistpaag.lastfm.trainee.views.main.TopTrackFragment"
+        android:label="top_track_fragment"
+        tools:layout="@layout/top_track_fragment" />
+</navigation>
