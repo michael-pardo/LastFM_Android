@@ -10,6 +10,7 @@ import retrofit2.http.Query
 interface ApiService {
     @GET(Const.URL_HYPED_ARTIST)
     fun fetchTopArtist(
+        @Query("page") int: Int
     ): Deferred<TopArtistFM>
 
     @GET(Const.URL_HYPED_ARTIST)

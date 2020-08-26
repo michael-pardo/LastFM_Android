@@ -1,21 +1,26 @@
 package com.mistpaag.lastfm.trainee.views.main.topArtist
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mistpaag.lastfm.trainee.R
 import com.mistpaag.lastfm.trainee.adapters.TopArtistAdapter
 import com.mistpaag.lastfm.trainee.databinding.TopArtistFragmentBinding
-import com.mistpaag.lastfm.trainee.models.TopArtist
+import com.mistpaag.lastfm.trainee.utils.smoothSnapToPosition
+import org.koin.android.ext.android.bind
 import org.koin.android.ext.android.inject
 
-class TopArtistFragment : Fragment() {
+
+class TopArtistFragment : Fragment(), SearchView.OnQueryTextListener {
 
     companion object {
         fun newInstance() =
@@ -42,9 +47,46 @@ class TopArtistFragment : Fragment() {
         binding.topArtistRecycler.layoutManager = GridLayoutManager(context, 2)
         binding.topArtistRecycler.adapter = adapter
 
-        viewModel.topArtistList.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
+        binding.topArtistRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (binding.textView.text.isNullOrEmpty()) return
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE ) {
+                    viewModel.needOtherPage()
+                }
+            }
         })
+
+        viewModel.topArtistList.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it.toMutableList())
+            adapter.notifyDataSetChanged()
+        })
+
+
+        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver(){
+            override fun onChanged() {
+                super.onChanged()
+                val layoutManager = binding.topArtistRecycler.layoutManager
+                val current = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                if (!binding.textView.text.isNullOrEmpty()){
+                    binding.topArtistRecycler.smoothSnapToPosition(current+2)
+                }
+
+            }
+        })
+
+        binding.search.setOnSearchClickListener{
+            binding.textView.text = ""
+        }
+
+
+        binding.search.setOnCloseListener{
+            binding.textView.text = getString(R.string.topartist)
+            return@setOnCloseListener false
+        }
+
+        binding.search.setOnQueryTextListener(this)
+
 
         return binding.root
     }
@@ -52,6 +94,17 @@ class TopArtistFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.fetchTopArtists()
+    }
+
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        p0?.let {
+            viewModel.searchTopArtists(it)
+        }
+        return false
     }
 
 }

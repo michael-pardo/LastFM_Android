@@ -1,13 +1,11 @@
 package com.mistpaag.lastfm.trainee.views.main.topTrack
 
-import android.content.Context
-import android.util.DisplayMetrics
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mistpaag.lastfm.trainee.data.repository.Repository
-import com.mistpaag.lastfm.trainee.models.TopArtist
+import com.mistpaag.lastfm.trainee.models.database.TopArtist
 import com.mistpaag.lastfm.trainee.utils.ScreenUtil
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -25,7 +23,7 @@ class TopTrackViewModel(private val repository: Repository, private val screenUt
         viewModelScope.launch {
             repository.fetchTracks().collect {
                 it.map { artist ->
-                    var topArtist = artist.getTopArtis(position)
+                    var topArtist = artist.getTopArtis(position,2)
                     artists.add(topArtist)
                 }
                 _topArtistList.value = artists

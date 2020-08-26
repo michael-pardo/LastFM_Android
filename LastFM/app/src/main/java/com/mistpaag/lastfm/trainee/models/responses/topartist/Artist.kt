@@ -1,6 +1,6 @@
 package com.mistpaag.lastfm.trainee.models.responses.topartist
 
-import com.mistpaag.lastfm.trainee.models.TopArtist
+import com.mistpaag.lastfm.trainee.models.database.TopArtist
 
 data class Artist(
     val image: List<Image>,
@@ -10,11 +10,23 @@ data class Artist(
     val streamable: String,
     val url: String
 ){
-    fun getTopArtis(positionWithScreen: Int): TopArtist {
+    fun getTopArtis(positionWithScreen: Int, page:Int): TopArtist {
         return if (positionWithScreen >= image.size){
-            TopArtist(name, image[image.size-1].url, url, listeners)
+            TopArtist(
+                name,
+                image[image.size - 1].url,
+                url,
+                listeners,
+                page
+            )
         }else{
-            TopArtist(name, image[positionWithScreen].url, url, listeners)
+            TopArtist(
+                name,
+                image[positionWithScreen].url,
+                url,
+                listeners,
+                page
+            )
         }
 
     }

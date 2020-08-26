@@ -1,7 +1,5 @@
 package com.mistpaag.lastfm.trainee.adapters
 
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -9,8 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.mistpaag.lastfm.trainee.R
-import com.mistpaag.lastfm.trainee.databinding.TopArtistItemBinding
-import com.mistpaag.lastfm.trainee.models.TopArtist
+import com.mistpaag.lastfm.trainee.models.database.TopArtist
 import com.mistpaag.lastfm.trainee.utils.inflate
 import kotlinx.android.synthetic.main.top_artist_item.view.*
 
@@ -26,10 +23,7 @@ class TopArtistAdapter(val itemClick:(Int)-> Unit) : ListAdapter<TopArtist, TopA
         holder.bindTo(getItem(position), position)
     }
 
-
-
-
-    class ViewHolder( itemView: View, var itemClick:(Int)-> Unit) : RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder( itemView: View, var itemClick:(Int)-> Unit) : RecyclerView.ViewHolder(itemView){
         fun bindTo(topArtist: TopArtist, position: Int){
             with(topArtist){
                 itemView.artist_image.load(image)

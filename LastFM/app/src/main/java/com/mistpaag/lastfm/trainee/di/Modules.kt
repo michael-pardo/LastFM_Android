@@ -1,6 +1,8 @@
 package com.mistpaag.lastfm.trainee.di
 
+import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.mistpaag.lastfm.trainee.data.local.LastFMDB
 import com.mistpaag.lastfm.trainee.data.remote.ApiService
 import com.mistpaag.lastfm.trainee.data.repository.Repository
 import com.mistpaag.lastfm.trainee.utils.Const
@@ -22,7 +24,7 @@ val appModule = module {
 
 
 val mainVMModule = module {
-    viewModel { TopArtistViewModel(get(), get()) }
+    single { TopArtistViewModel(get()) }
     viewModel { TopTrackViewModel(get(), get()) }
     viewModel { DetailWebViewViewModel() }
 }
@@ -47,8 +49,13 @@ val dataModule = module {
         .build()
     }
 
+    single { Room.databaseBuilder(get(), LastFMDB::class.java, Const.dbName).build() }
+    single { get<LastFMDB>().lastFMDao }
+
     single { get<Retrofit>().create(ApiService::class.java) }
-    single { Repository(get()) }
+    single { Repository(get(), get(), get(), get() ) }
+
+
 
 }
 

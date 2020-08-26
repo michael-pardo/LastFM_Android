@@ -1,34 +1,61 @@
 package com.mistpaag.lastfm.trainee.views.main.topArtist
 
-import android.content.Context
-import android.util.DisplayMetrics
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mistpaag.lastfm.trainee.data.repository.Repository
-import com.mistpaag.lastfm.trainee.models.TopArtist
+import com.mistpaag.lastfm.trainee.models.database.TopArtist
 import com.mistpaag.lastfm.trainee.utils.ScreenUtil
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.ArrayList
 
-class TopArtistViewModel(private val repository:Repository, private val screenUtil: ScreenUtil) : ViewModel() {
+class TopArtistViewModel(private val repository:Repository) : ViewModel() {
     // TODO: Implement the ViewModel
     val topArtistList : LiveData<List<TopArtist>>
         get()= _topArtistList
     private val _topArtistList = MutableLiveData<List<TopArtist>>()
 
+    val lastPage : LiveData<Int>
+        get()= _lastPage
+    private val _lastPage = MutableLiveData<Int>()
+
+    val loadingNextPage : LiveData<Boolean>
+        get()= _loadingNextPage
+    private val _loadingNextPage = MutableLiveData<Boolean>(false)
+    var artists = ArrayList<TopArtist>()
+
+
     fun fetchTopArtists(){
-        val position = screenUtil.getPositionForScreenDensity()
-        var artists = ArrayList<TopArtist>()
-        viewModelScope.launch {
-            repository.fetchArtists().collect {
-                it.map { artist ->
-                    var topArtist = artist.getTopArtis(position)
-                    artists.add(topArtist)
+        if (!_loadingNextPage.value!!){
+            viewModelScope.launch {
+                _loadingNextPage.value = true
+                repository.fetchArtists().collect {
+                    artists.addAll(it)
+                    _topArtistList.value = artists
+                    _loadingNextPage.value = false
                 }
-                _topArtistList.value = artists
+            }
+        }
+
+    }
+
+
+    fun needOtherPage(){
+        _loadingNextPage.value?.let {loadingPage ->
+            if (!loadingPage){
+                fetchTopArtists()
+            }
+        }
+    }
+
+    fun searchTopArtists(name: String) {
+        viewModelScope.launch {
+            repository.searchTopArtists(name).collect {
+                Log.d("lol search", "${it.size}")
+                _topArtistList.value = it
             }
         }
     }
