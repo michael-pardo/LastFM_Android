@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/trainee_graph"
+    app:startDestination="@id/topArtistFragment2">
+
+    <fragment
+        android:id="@+id/topArtistFragment2"
+        android:name="com.mistpaag.lastfm.trainee.views.main.topArtist.TopArtistFragment"
+        android:label="top_artist_fragment"
+        tools:layout="@layout/top_artist_fragment" />
+</navigation>

@@ -1,4 +1,4 @@
-package com.mistpaag.lastfm.trainee
+package com.mistpaag.lastfm.trainee.di
 
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
@@ -11,7 +11,8 @@ class MyApp : Application(){
         startKoin {
             androidContext(this@MyApp)
             modules(
-
+                dataModule,
+                mainVMModule
             )
         }
     }
