@@ -24,18 +24,21 @@ class TopArtistAdapter(val itemClick:(Int)-> Unit) : ListAdapter<TopArtist, TopA
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.d("lol", position.toString())
-        holder.bindTo(getItem(position))
+        holder.bindTo(getItem(position), position)
     }
 
 
 
 
-    class ViewHolder( itemView: View, val itemClick:(Int)-> Unit) : RecyclerView.ViewHolder(itemView){
-        fun bindTo(topArtist: TopArtist){
+    class ViewHolder( itemView: View, var itemClick:(Int)-> Unit) : RecyclerView.ViewHolder(itemView){
+        fun bindTo(topArtist: TopArtist, position: Int){
             with(topArtist){
                 itemView.artist_image.load(image)
                 itemView.artist_name.text = name
                 itemView.listeners_count.text = "$listeners Listeners"
+                itemView.setOnClickListener {
+                    itemClick(position)
+                }
             }
 
         }
