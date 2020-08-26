@@ -2,7 +2,6 @@ package com.mistpaag.lastfm.trainee.views.main.topArtist
 
 import android.content.Context
 import android.util.DisplayMetrics
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,9 +27,7 @@ class TopArtistViewModel(val repository:Repository, val context: Context) : View
                     var topArtist = artist.getTopArtis(position)
                     artists.add(topArtist)
                 }
-                Log.d("lol", "Trajo data")
                 _topArtistList.value = artists
-                Log.d("lol", "Trajo data ${artists.size}")
             }
         }
     }

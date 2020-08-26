@@ -6,6 +6,7 @@ import com.mistpaag.lastfm.trainee.data.repository.Repository
 import com.mistpaag.lastfm.trainee.utils.Const
 import com.mistpaag.lastfm.trainee.views.main.topArtist.TopArtistViewModel
 import com.mistpaag.lastfm.trainee.views.main.TopTrackViewModel
+import com.mistpaag.lastfm.trainee.views.main.detailWebview.DetailWebViewViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -21,7 +22,10 @@ val appModule = module {
 val mainVMModule = module {
     viewModel { TopArtistViewModel(get(), get()) }
     viewModel { TopTrackViewModel() }
+    viewModel { DetailWebViewViewModel() }
 }
+
+
 
 
 

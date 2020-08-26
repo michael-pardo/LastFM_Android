@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.mistpaag.lastfm.trainee.R
 import com.mistpaag.lastfm.trainee.adapters.TopArtistAdapter
 import com.mistpaag.lastfm.trainee.databinding.TopArtistFragmentBinding
@@ -31,9 +33,13 @@ class TopArtistFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        val adapter = TopArtistAdapter{
-
+        val adapter = TopArtistAdapter{position ->
+            viewModel.topArtistList.value?.let {artistList ->
+                val topArtist = artistList[position]
+                findNavController().navigate(TopArtistFragmentDirections.actionTopArtistFragment2ToDetailWebViewFragment(topArtist.url, topArtist.name))
+            }
         }
+        binding.topArtistRecycler.layoutManager = GridLayoutManager(context, 2)
         binding.topArtistRecycler.adapter = adapter
 
         viewModel.topArtistList.observe(viewLifecycleOwner, Observer {

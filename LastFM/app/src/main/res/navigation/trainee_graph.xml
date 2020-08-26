@@ -9,5 +9,25 @@
         android:id="@+id/topArtistFragment2"
         android:name="com.mistpaag.lastfm.trainee.views.main.topArtist.TopArtistFragment"
         android:label="top_artist_fragment"
-        tools:layout="@layout/top_artist_fragment" />
+        tools:layout="@layout/top_artist_fragment" >
+        <action
+            android:id="@+id/action_topArtistFragment2_to_detailWebViewFragment"
+            app:destination="@id/detailWebViewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/detailWebViewFragment"
+        android:name="com.mistpaag.lastfm.trainee.views.main.detailWebview.DetailWebViewFragment"
+        android:label="detail_web_view_fragment"
+        tools:layout="@layout/detail_web_view_fragment" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+        <argument
+            android:name="tittle"
+            app:argType="string" />
+    </fragment>
 </navigation>
