@@ -4,8 +4,9 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.mistpaag.lastfm.trainee.data.remote.ApiService
 import com.mistpaag.lastfm.trainee.data.repository.Repository
 import com.mistpaag.lastfm.trainee.utils.Const
+import com.mistpaag.lastfm.trainee.utils.ScreenUtil
 import com.mistpaag.lastfm.trainee.views.main.topArtist.TopArtistViewModel
-import com.mistpaag.lastfm.trainee.views.main.TopTrackViewModel
+import com.mistpaag.lastfm.trainee.views.main.topTrack.TopTrackViewModel
 import com.mistpaag.lastfm.trainee.views.main.detailWebview.DetailWebViewViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.viewmodel.dsl.viewModel
@@ -16,12 +17,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 val appModule = module {
+    single { ScreenUtil(get()) }
 }
 
 
 val mainVMModule = module {
     viewModel { TopArtistViewModel(get(), get()) }
-    viewModel { TopTrackViewModel() }
+    viewModel { TopTrackViewModel(get(), get()) }
     viewModel { DetailWebViewViewModel() }
 }
 

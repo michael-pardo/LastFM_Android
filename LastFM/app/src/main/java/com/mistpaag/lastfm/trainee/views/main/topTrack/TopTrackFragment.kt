@@ -1,4 +1,4 @@
-package com.mistpaag.lastfm.trainee.views.main
+package com.mistpaag.lastfm.trainee.views.main.topTrack
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

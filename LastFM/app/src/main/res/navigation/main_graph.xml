@@ -12,7 +12,7 @@
         tools:layout="@layout/top_artist_fragment" />
     <fragment
         android:id="@+id/topTrackFragment"
-        android:name="com.mistpaag.lastfm.trainee.views.main.TopTrackFragment"
+        android:name="com.mistpaag.lastfm.trainee.views.main.topTrack.TopTrackFragment"
         android:label="top_track_fragment"
         tools:layout="@layout/top_track_fragment" />
 </navigation>

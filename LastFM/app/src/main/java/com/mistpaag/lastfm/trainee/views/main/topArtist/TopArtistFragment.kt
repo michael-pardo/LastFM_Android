@@ -36,7 +36,7 @@ class TopArtistFragment : Fragment() {
         val adapter = TopArtistAdapter{position ->
             viewModel.topArtistList.value?.let {artistList ->
                 val topArtist = artistList[position]
-                findNavController().navigate(TopArtistFragmentDirections.actionTopArtistFragment2ToDetailWebViewFragment(topArtist.url, topArtist.name))
+//                findNavController().navigate(TopArtistFragmentDirections.actionTopArtistFragment2ToDetailWebViewFragment(topArtist.url, topArtist.name))
             }
         }
         binding.topArtistRecycler.layoutManager = GridLayoutManager(context, 2)

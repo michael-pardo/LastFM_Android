@@ -14,15 +14,23 @@ class Repository(private val apiService: ApiService){
 
 
 
-        suspend fun fetchArtist() = flow<List<Artist>> {
-            try {
-                val call = apiService.fetchTopArtist().await()
-                emit(call.topartists.artist)
-            }catch (t:Throwable){
-                emit(emptyList())
-            }
-        }.flowOn(Dispatchers.IO)
+    suspend fun fetchArtists() = flow<List<Artist>> {
+        try {
+            val call = apiService.fetchTopArtist().await()
+            emit(call.topartists.artist)
+        }catch (t:Throwable){
+            emit(emptyList())
+        }
+    }.flowOn(Dispatchers.IO)
 
+    suspend fun fetchTracks() = flow<List<Artist>> {
+        try {
+            val call = apiService.fetchTopArtist().await()
+            emit(call.topartists.artist)
+        }catch (t:Throwable){
+            emit(emptyList())
+        }
+    }.flowOn(Dispatchers.IO)
 
 }
 

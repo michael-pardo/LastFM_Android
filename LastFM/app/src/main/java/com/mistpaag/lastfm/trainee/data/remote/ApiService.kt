@@ -8,12 +8,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
-//    @FormUrlEncoded
     @GET(Const.URL_HYPED_ARTIST)
     fun fetchTopArtist(
-//        @Query("method") method: String,
-//        @Query("country") country: String,
-//        @Query("api_key") apiKey: String,
-//        @Query("format") format: String
+    ): Deferred<TopArtistFM>
+
+    @GET(Const.URL_HYPED_ARTIST)
+    fun fetchTopTrack(
     ): Deferred<TopArtistFM>
 }

@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.mistpaag.lastfm.trainee.views.main.TopTrackViewModel" />
+            type="com.mistpaag.lastfm.trainee.views.main.topTrack.TopTrackViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.main.TopTrackFragment">
+        tools:context=".views.main.topTrack.TopTrackFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/toolbar_constraint"
@@ -23,6 +23,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/colorText"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/toprack" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

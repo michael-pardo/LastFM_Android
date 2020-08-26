@@ -11,27 +11,25 @@ import coil.api.load
 import com.mistpaag.lastfm.trainee.R
 import com.mistpaag.lastfm.trainee.databinding.TopArtistItemBinding
 import com.mistpaag.lastfm.trainee.models.TopArtist
+import com.mistpaag.lastfm.trainee.models.TopTrack
 import com.mistpaag.lastfm.trainee.utils.inflate
 import kotlinx.android.synthetic.main.top_artist_item.view.*
 
-class TopArtistAdapter(val itemClick:(Int)-> Unit) : ListAdapter<TopArtist, TopArtistAdapter.ViewHolder>(TopArtistDiffCallback()){
+class TopTracktAdapter(val itemClick:(Int)-> Unit) : ListAdapter<TopTrack, TopTracktAdapter.ViewHolder>(TopTrackDiffCallback()){
 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(parent.inflate(R.layout.top_artist_item), itemClick = itemClick)
+        return ViewHolder(parent.inflate(R.layout.top_track_item), itemClick = itemClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindTo(getItem(position), position)
     }
 
-
-
-
     class ViewHolder( itemView: View, var itemClick:(Int)-> Unit) : RecyclerView.ViewHolder(itemView){
-        fun bindTo(topArtist: TopArtist, position: Int){
-            with(topArtist){
+        fun bindTo(topTrack: TopTrack, position: Int){
+            with(topTrack){
                 itemView.artist_image.load(image)
                 itemView.artist_name.text = name
                 itemView.listeners_count.text = "$listeners Listeners"
@@ -47,12 +45,12 @@ class TopArtistAdapter(val itemClick:(Int)-> Unit) : ListAdapter<TopArtist, TopA
 
 
 
-class TopArtistDiffCallback : DiffUtil.ItemCallback<TopArtist>() {
-    override fun areItemsTheSame(oldItem: TopArtist, newItem: TopArtist): Boolean {
+class TopTrackDiffCallback : DiffUtil.ItemCallback<TopTrack>() {
+    override fun areItemsTheSame(oldItem: TopTrack, newItem: TopTrack): Boolean {
         return oldItem.name == newItem.name
     }
 
-    override fun areContentsTheSame(oldItem: TopArtist, newItem: TopArtist): Boolean {
+    override fun areContentsTheSame(oldItem: TopTrack, newItem: TopTrack): Boolean {
         return oldItem == newItem
     }
 }

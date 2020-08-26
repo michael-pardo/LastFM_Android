@@ -1,4 +1,4 @@
-package com.mistpaag.lastfm.trainee.views.main.topArtist
+package com.mistpaag.lastfm.trainee.views.main.topTrack
 
 import android.content.Context
 import android.util.DisplayMetrics
@@ -13,17 +13,17 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.ArrayList
 
-class TopArtistViewModel(private val repository:Repository, private val screenUtil: ScreenUtil) : ViewModel() {
-    // TODO: Implement the ViewModel
+class TopTrackViewModel(private val repository: Repository, private val screenUtil: ScreenUtil) : ViewModel() {
+
     val topArtistList : LiveData<List<TopArtist>>
         get()= _topArtistList
     private val _topArtistList = MutableLiveData<List<TopArtist>>()
 
-    fun fetchTopArtists(){
+    fun fetchTopTracks() {
         val position = screenUtil.getPositionForScreenDensity()
         var artists = ArrayList<TopArtist>()
         viewModelScope.launch {
-            repository.fetchArtists().collect {
+            repository.fetchTracks().collect {
                 it.map { artist ->
                     var topArtist = artist.getTopArtis(position)
                     artists.add(topArtist)
@@ -32,4 +32,6 @@ class TopArtistViewModel(private val repository:Repository, private val screenUt
             }
         }
     }
+
+
 }
