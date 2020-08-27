@@ -27,6 +27,9 @@ class TopArtistViewModel(private val repository:Repository) : ViewModel() {
     private val _loadingNextPage = MutableLiveData<Boolean>(false)
     var artists = ArrayList<TopArtist>()
 
+    fun loadInitData(){
+        repository.lastPageTopArtist = 1
+    }
 
     fun fetchTopArtists(){
         if (!_loadingNextPage.value!!){
@@ -54,9 +57,12 @@ class TopArtistViewModel(private val repository:Repository) : ViewModel() {
     fun searchTopArtists(name: String) {
         viewModelScope.launch {
             repository.searchTopArtists(name).collect {
-                Log.d("lol search", "${it.size}")
                 _topArtistList.value = it
             }
         }
+    }
+
+    fun setTopArtists() {
+        _topArtistList.value = artists
     }
 }

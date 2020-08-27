@@ -5,9 +5,8 @@ import android.content.Context
 import android.util.Log
 import com.mistpaag.lastfm.trainee.data.local.dao.LastFMDao
 import com.mistpaag.lastfm.trainee.data.remote.ApiService
+import com.mistpaag.lastfm.trainee.models.database.TopTrack
 import com.mistpaag.lastfm.trainee.models.database.TopArtist
-import com.mistpaag.lastfm.trainee.models.responses.topartist.Artist
-import com.mistpaag.lastfm.trainee.utils.Const
 import com.mistpaag.lastfm.trainee.utils.ScreenUtil
 import com.mistpaag.lastfm.trainee.utils.haveConnection
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +18,7 @@ import kotlinx.coroutines.flow.flowOn
 class Repository(private val apiService: ApiService, private val localDB: LastFMDao, private val context: Context, private val screenUtil: ScreenUtil){
 
     var lastPageTopArtist = 1
+    var lastPageTopTrack = 1
 
     suspend fun fetchArtists() = flow<List<TopArtist>> {
         try {
@@ -39,17 +39,18 @@ class Repository(private val apiService: ApiService, private val localDB: LastFM
                 }
             }
         }catch (t:Throwable){
-            Log.d("lol", " error")
-            fetchLocalArtists().collect {
+            fetchLocalArtists(lastPageTopTrack).collect {
                 emit(it)
             }
         }
     }.flowOn(Dispatchers.IO)
 
-    private fun fetchLocalArtists()= flow{
+    private fun fetchLocalArtists(page:Int?=null)= flow{
+        page?.let { lastPageTopArtist = page }
         val artists = localDB.fetchTopArtists(lastPageTopArtist)
-        if (artists.isNotEmpty()) lastPageTopArtist++
-        Log.d("lol data", artists.size.toString())
+        if (page == null) {
+            if (artists.isNotEmpty()) lastPageTopArtist++
+        }
         emit(artists)
     }.flowOn(Dispatchers.IO)
 
@@ -58,13 +59,46 @@ class Repository(private val apiService: ApiService, private val localDB: LastFM
     }.flowOn(Dispatchers.IO)
 
 
-    suspend fun fetchTracks() = flow<List<Artist>> {
+    suspend fun fetchTracks() = flow<List<TopTrack>> {
         try {
-            val call = apiService.fetchTopArtist(2).await()
-            emit(call.topartists.artist)
+            if (context.haveConnection()){
+                val response = apiService.fetchTopTrack(lastPageTopTrack).await()
+                var tracksList = ArrayList<TopTrack>()
+                response.tracks.track.map {track ->
+                    val position = screenUtil.getPositionForScreenDensity()
+                    tracksList.add(track.getTopTrack(position, lastPageTopTrack))
+                }
+                localDB.insertTopTracks(tracksList)
+                fetchLocalTracks().collect {
+                    emit(it)
+                }
+            }else{
+                fetchLocalTracks().collect {
+                    emit(it)
+                }
+            }
         }catch (t:Throwable){
-            emit(emptyList())
+            fetchLocalTracks(lastPageTopTrack).collect {
+                emit(it)
+            }
         }
+    }.flowOn(Dispatchers.IO)
+
+    private fun fetchLocalTracks(page:Int?=null)= flow{
+        page?.let { lastPageTopTrack = page }
+        val tracks = localDB.fetchTopTracks(lastPageTopTrack)
+        if (page == null) {
+            if (tracks.isNotEmpty()) lastPageTopTrack++
+        }
+        emit(tracks)
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun searchTopTracks(name:String)= flow{
+        emit(localDB.searchTopTracks(name))
+    }.flowOn(Dispatchers.IO)
+
+    suspend fun fetchTopTrack(name:String)= flow{
+        emit(localDB.searchTopTrack(name))
     }.flowOn(Dispatchers.IO)
 
 }

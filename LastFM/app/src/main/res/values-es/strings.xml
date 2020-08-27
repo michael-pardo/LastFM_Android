@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LastFM</string>
+    <string name="top_artist">Top Artistas</string>
+    <string name="top_track">Top Canciones</string>
+    <string name="search_hint">Buscar</string>
+    <string name="listeners">Oyentes</string>
+    <string name="artist">Artista</string>
+    <string name="time">Tiempo</string>
+    <string name="url_artist">Url Artista</string>
+    <string name="url_track">Url Pista</string>
+</resources>

@@ -26,6 +26,12 @@
         <item name="android:tint">@color/colorText</item>
     </style>
 
+    <style name="NavigationView">
+        <item name="android:textColorSecondary">@color/colorItemDrawer</item>
+        <item name="itemTextColor">@color/menu_drawable_selector</item>
+        <item name="itemIconTint">@color/menu_drawable_selector</item>
+    </style>
+
 
 
 </resources>

@@ -13,7 +13,8 @@ class MyApp : Application(){
             modules(
                 appModule,
                 dataModule,
-                mainVMModule
+                mainVMModule,
+                detailVMModule
             )
         }
     }

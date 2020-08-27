@@ -14,50 +14,17 @@
         android:layout_height="match_parent"
         tools:context=".views.main.topArtist.TopArtistFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/toolbar_constraint"
-            android:layout_width="0dp"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/topartist"
-                android:textColor="@color/colorText"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <SearchView
-                android:id="@+id/search"
-                android:layoutDirection="rtl"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:foregroundTint="@color/colorText"
-                style="@style/SearchViewStyle"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/top_artist_recycler"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            tools:listitem="@layout/top_artist_item"
-            tools:itemCount="10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_constraint" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="10"
+            tools:listitem="@layout/top_artist_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

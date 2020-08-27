@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.mistpaag.lastfm.trainee.R
-import com.mistpaag.lastfm.trainee.models.TopTrack
+import com.mistpaag.lastfm.trainee.models.database.TopTrack
 import com.mistpaag.lastfm.trainee.utils.inflate
-import kotlinx.android.synthetic.main.top_artist_item.view.*
+import kotlinx.android.synthetic.main.top_track_item.view.*
 
-class TopTracktAdapter(val itemClick:(Int)-> Unit) : ListAdapter<TopTrack, TopTracktAdapter.ViewHolder>(TopTrackDiffCallback()){
+class TopTrackAdapter(val itemClick:(TopTrack)-> Unit) : ListAdapter<TopTrack, TopTrackAdapter.ViewHolder>(TopTrackDiffCallback()){
 
 
 
@@ -20,17 +20,18 @@ class TopTracktAdapter(val itemClick:(Int)-> Unit) : ListAdapter<TopTrack, TopTr
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindTo(getItem(position), position)
+        holder.bindTo(getItem(position))
     }
 
-    class ViewHolder( itemView: View, var itemClick:(Int)-> Unit) : RecyclerView.ViewHolder(itemView){
-        fun bindTo(topTrack: TopTrack, position: Int){
+    class ViewHolder( itemView: View, var itemClick:(TopTrack)-> Unit) : RecyclerView.ViewHolder(itemView){
+        fun bindTo(topTrack: TopTrack){
             with(topTrack){
-                itemView.artist_image.load(image)
-                itemView.artist_name.text = name
-                itemView.listeners_count.text = "$listeners Listeners"
+                itemView.track_image.load(image)
+                itemView.track_name.text = name
+                itemView.listeners_track_count.text = "$listeners Listeners"
+                itemView.time_count.text = "$duration"
                 itemView.setOnClickListener {
-                    itemClick(position)
+                    itemClick(topTrack)
                 }
             }
 

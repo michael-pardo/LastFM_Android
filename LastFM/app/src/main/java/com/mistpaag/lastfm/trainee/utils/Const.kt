@@ -13,7 +13,8 @@ object Const {
     const val API_KEY = "829751643419a7128b7ada50de590067"
     const val PATH_VERSION = "/2.0/"
 
-    const val VALUE_HYPED_ARTIST_METOD = "geo.gettopartists"
+    const val VALUE_TOP_ARTIST_METOD = "geo.gettopartists"
+    const val VALUE_TOP_TRACK_METOD = "geo.gettoptracks"
     const val PARAM_METOD = "method"
     const val PARAM_FORMAT = "format"
     const val PARAM_API_KEY = "api_key"
@@ -22,8 +23,12 @@ object Const {
 
     const val VALUE_JSON = "json"
 
-    const val URL_HYPED_ARTIST =
-          "$PATH_VERSION?" + PARAM_API_KEY + "=" + API_KEY + "&" + PARAM_METOD + "=" + VALUE_HYPED_ARTIST_METOD +
+    const val URL_TOP_ARTIST =
+          "$PATH_VERSION?" + PARAM_API_KEY + "=" + API_KEY + "&" + PARAM_METOD + "=" + VALUE_TOP_ARTIST_METOD +
+                "&" + PARAM_FORMAT + "=" + VALUE_JSON + "&" + PARAM_COUNTRY + "=" + VALUE_COUNTRY
+
+    const val URL_TOP_TRACK =
+        "$PATH_VERSION?" + PARAM_API_KEY + "=" + API_KEY + "&" + PARAM_METOD + "=" + VALUE_TOP_TRACK_METOD +
                 "&" + PARAM_FORMAT + "=" + VALUE_JSON + "&" + PARAM_COUNTRY + "=" + VALUE_COUNTRY
 
 

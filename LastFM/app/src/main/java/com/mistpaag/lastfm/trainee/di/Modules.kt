@@ -7,6 +7,8 @@ import com.mistpaag.lastfm.trainee.data.remote.ApiService
 import com.mistpaag.lastfm.trainee.data.repository.Repository
 import com.mistpaag.lastfm.trainee.utils.Const
 import com.mistpaag.lastfm.trainee.utils.ScreenUtil
+import com.mistpaag.lastfm.trainee.views.detail.topTrack.DetailTopTrackViewModel
+import com.mistpaag.lastfm.trainee.views.main.SharedActivityViewModel
 import com.mistpaag.lastfm.trainee.views.main.topArtist.TopArtistViewModel
 import com.mistpaag.lastfm.trainee.views.main.topTrack.TopTrackViewModel
 import com.mistpaag.lastfm.trainee.views.main.detailWebview.DetailWebViewViewModel
@@ -20,13 +22,18 @@ import java.util.concurrent.TimeUnit
 
 val appModule = module {
     single { ScreenUtil(get()) }
+    single { SharedActivityViewModel() }
 }
 
 
 val mainVMModule = module {
-    single { TopArtistViewModel(get()) }
+    viewModel { TopArtistViewModel(get()) }
     viewModel { TopTrackViewModel(get(), get()) }
+}
+
+val detailVMModule = module {
     viewModel { DetailWebViewViewModel() }
+    viewModel { DetailTopTrackViewModel(get()) }
 }
 
 

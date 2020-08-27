@@ -3,13 +3,13 @@
 
     <item
         android:id="@+id/topArtistFragment"
-        android:title="@string/topartist"
+        android:title="@string/top_artist"
         android:icon="@drawable/user_input"
         />
 
     <item
         android:id="@+id/topTrackFragment"
-        android:title="@string/toprack"
+        android:title="@string/top_track"
         android:icon="@drawable/ic_playcount"
         />
 

@@ -2,6 +2,7 @@ package com.mistpaag.lastfm.trainee.adapters
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.mistpaag.lastfm.trainee.models.database.TopArtist
 import com.mistpaag.lastfm.trainee.utils.inflate
 import kotlinx.android.synthetic.main.top_artist_item.view.*
 
-class TopArtistAdapter(val itemClick:(Int)-> Unit) : ListAdapter<TopArtist, TopArtistAdapter.ViewHolder>(TopArtistDiffCallback()){
+class TopArtistAdapter(val itemClick:(TopArtist)-> Unit) : ListAdapter<TopArtist, TopArtistAdapter.ViewHolder>(TopArtistDiffCallback()){
 
 
 
@@ -23,14 +24,15 @@ class TopArtistAdapter(val itemClick:(Int)-> Unit) : ListAdapter<TopArtist, TopA
         holder.bindTo(getItem(position), position)
     }
 
-    inner class ViewHolder( itemView: View, var itemClick:(Int)-> Unit) : RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder( itemView: View, var itemClick:(TopArtist)-> Unit) : RecyclerView.ViewHolder(itemView){
         fun bindTo(topArtist: TopArtist, position: Int){
             with(topArtist){
                 itemView.artist_image.load(image)
+                itemView.artist_image.scaleType = ImageView.ScaleType.CENTER_CROP
                 itemView.artist_name.text = name
                 itemView.listeners_count.text = "$listeners Listeners"
                 itemView.setOnClickListener {
-                    itemClick(position)
+                    itemClick(topArtist)
                 }
             }
 
