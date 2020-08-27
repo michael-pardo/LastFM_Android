@@ -2,12 +2,14 @@ package com.mistpaag.lastfm.trainee.views.main.topTrack
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,9 +18,11 @@ import com.mistpaag.lastfm.trainee.R
 import com.mistpaag.lastfm.trainee.adapters.TopTrackAdapter
 import com.mistpaag.lastfm.trainee.databinding.TopTrackFragmentBinding
 import com.mistpaag.lastfm.trainee.models.database.TopTrack
+import com.mistpaag.lastfm.trainee.utils.isLandsCape
 import com.mistpaag.lastfm.trainee.utils.smoothSnapToPosition
 import com.mistpaag.lastfm.trainee.views.main.SharedActivityViewModel
 import org.koin.android.ext.android.inject
+
 
 class TopTrackFragment : Fragment() {
 
@@ -43,7 +47,13 @@ class TopTrackFragment : Fragment() {
         val adapter = TopTrackAdapter{ topTrack ->
             goToDetail(topTrack)
         }
-        binding.recyclerTopTracks.layoutManager = GridLayoutManager(context, 1)
+        if (requireActivity().isLandsCape()) {
+            binding.recyclerTopTracks.layoutManager = GridLayoutManager(context, 2)
+        } else {
+            binding.recyclerTopTracks.layoutManager = GridLayoutManager(context, 1)
+        }
+
+
         binding.recyclerTopTracks.adapter = adapter
 
         binding.recyclerTopTracks.addOnScrollListener(object : RecyclerView.OnScrollListener() {

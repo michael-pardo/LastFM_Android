@@ -1,12 +1,10 @@
 package com.mistpaag.lastfm.trainee.utils
 
+import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.EditText
 import androidx.annotation.IdRes
 import androidx.drawerlayout.widget.DrawerLayout
@@ -46,6 +44,12 @@ fun Context.haveConnection():Boolean{
     var connectivityManager: ConnectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     var networkInfo = connectivityManager.activeNetworkInfo
     return (networkInfo!=null && networkInfo.isAvailable && networkInfo.isConnected)
+}
+
+fun Activity.isLandsCape(): Boolean {
+    val wm: WindowManager = this.windowManager
+    val d = wm.defaultDisplay
+    return (d.width > d.height)
 }
 
 fun NavigationView.setupWithUniqueFragment(navController: NavController) {
@@ -108,3 +112,4 @@ internal fun matchDestination(
     }
     return currentDestination.id == destId
 }
+

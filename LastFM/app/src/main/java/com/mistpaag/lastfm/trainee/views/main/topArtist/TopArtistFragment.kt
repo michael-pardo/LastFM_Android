@@ -1,27 +1,27 @@
 package com.mistpaag.lastfm.trainee.views.main.topArtist
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mistpaag.lastfm.trainee.R
 import com.mistpaag.lastfm.trainee.adapters.TopArtistAdapter
 import com.mistpaag.lastfm.trainee.databinding.TopArtistFragmentBinding
 import com.mistpaag.lastfm.trainee.models.database.TopArtist
+import com.mistpaag.lastfm.trainee.utils.isLandsCape
 import com.mistpaag.lastfm.trainee.utils.smoothSnapToPosition
 import com.mistpaag.lastfm.trainee.views.main.SharedActivityViewModel
-import org.koin.android.ext.android.bind
 import org.koin.android.ext.android.inject
 
 
@@ -47,7 +47,12 @@ class TopArtistFragment : Fragment() {
         val adapter = TopArtistAdapter{topArtist ->
             goToDetail(topArtist)
         }
-        binding.topArtistRecycler.layoutManager = GridLayoutManager(context, 2)
+        if (requireActivity().isLandsCape()) {
+            binding.topArtistRecycler.layoutManager = GridLayoutManager(context, 3)
+        } else {
+            binding.topArtistRecycler.layoutManager = GridLayoutManager(context, 2)
+        }
+
         binding.topArtistRecycler.adapter = adapter
 
         binding.topArtistRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -100,6 +105,7 @@ class TopArtistFragment : Fragment() {
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
