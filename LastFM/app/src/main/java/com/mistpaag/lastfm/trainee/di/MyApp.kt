@@ -11,8 +11,10 @@ class MyApp : Application(){
         startKoin {
             androidContext(this@MyApp)
             modules(
+                appModule,
                 dataModule,
-                mainVMModule
+                mainVMModule,
+                detailVMModule
             )
         }
     }

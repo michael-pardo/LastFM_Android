@@ -56,9 +56,11 @@
                         android:id="@+id/artist_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center|center_horizontal"
                         android:text="TextView"
                         android:textColor="@color/colorText"
                         android:textSize="18sp"
+                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -75,8 +77,8 @@
 
                         <ImageView
                             android:id="@+id/imageView3"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             app:layout_constraintBottom_toBottomOf="@+id/listeners_count"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/listeners_count"

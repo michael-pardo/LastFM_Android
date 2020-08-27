@@ -1,22 +1,22 @@
-package com.mistpaag.lastfm.trainee.views.main.topArtist
+package com.mistpaag.lastfm.trainee.views.main.topTrack
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mistpaag.lastfm.trainee.data.repository.Repository
+import com.mistpaag.lastfm.trainee.models.database.TopTrack
 import com.mistpaag.lastfm.trainee.models.database.TopArtist
 import com.mistpaag.lastfm.trainee.utils.ScreenUtil
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.ArrayList
 
-class TopArtistViewModel(private val repository:Repository) : ViewModel() {
-    // TODO: Implement the ViewModel
-    val topArtistList : LiveData<List<TopArtist>>
-        get()= _topArtistList
-    private val _topArtistList = MutableLiveData<List<TopArtist>>()
+class TopTrackViewModel(private val repository: Repository, private val screenUtil: ScreenUtil) : ViewModel() {
+
+    val topTrackstList : LiveData<List<TopTrack>>
+        get()= _topTrackstList
+    private val _topTrackstList = MutableLiveData<List<TopTrack>>()
 
     val lastPage : LiveData<Int>
         get()= _lastPage
@@ -25,44 +25,42 @@ class TopArtistViewModel(private val repository:Repository) : ViewModel() {
     val loadingNextPage : LiveData<Boolean>
         get()= _loadingNextPage
     private val _loadingNextPage = MutableLiveData<Boolean>(false)
-    var artists = ArrayList<TopArtist>()
+    var trackList = ArrayList<TopTrack>()
 
     fun loadInitData(){
-        repository.lastPageTopArtist = 1
+        repository.lastPageTopTrack = 1
     }
 
-    fun fetchTopArtists(){
-        if (!_loadingNextPage.value!!){
-            viewModelScope.launch {
-                _loadingNextPage.value = true
-                repository.fetchArtists().collect {
-                    artists.addAll(it)
-                    _topArtistList.value = artists
-                    _loadingNextPage.value = false
-                }
+    fun fetchTopTracks() {
+        val position = screenUtil.getPositionForScreenDensity()
+        var artists = ArrayList<TopArtist>()
+        viewModelScope.launch {
+            repository.fetchTracks().collect { tracks->
+                trackList.addAll(tracks)
+                _topTrackstList.value = trackList
             }
         }
-
     }
-
 
     fun needOtherPage(){
         _loadingNextPage.value?.let {loadingPage ->
             if (!loadingPage){
-                fetchTopArtists()
+                fetchTopTracks()
             }
         }
     }
 
     fun searchTopArtists(name: String) {
         viewModelScope.launch {
-            repository.searchTopArtists(name).collect {
-                _topArtistList.value = it
+            repository.searchTopTracks(name).collect {
+                _topTrackstList.value = it
             }
         }
     }
 
-    fun setTopArtists() {
-        _topArtistList.value = artists
+    fun setTopTracks() {
+        _topTrackstList.value = trackList
     }
+
+
 }

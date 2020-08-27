@@ -1,11 +1,16 @@
 package com.mistpaag.lastfm.trainee.di
 
+import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.mistpaag.lastfm.trainee.data.local.LastFMDB
 import com.mistpaag.lastfm.trainee.data.remote.ApiService
 import com.mistpaag.lastfm.trainee.data.repository.Repository
 import com.mistpaag.lastfm.trainee.utils.Const
+import com.mistpaag.lastfm.trainee.utils.ScreenUtil
+import com.mistpaag.lastfm.trainee.views.detail.topTrack.DetailTopTrackViewModel
+import com.mistpaag.lastfm.trainee.views.main.SharedActivityViewModel
 import com.mistpaag.lastfm.trainee.views.main.topArtist.TopArtistViewModel
-import com.mistpaag.lastfm.trainee.views.main.TopTrackViewModel
+import com.mistpaag.lastfm.trainee.views.main.topTrack.TopTrackViewModel
 import com.mistpaag.lastfm.trainee.views.main.detailWebview.DetailWebViewViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.viewmodel.dsl.viewModel
@@ -16,13 +21,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 val appModule = module {
+    single { ScreenUtil(get()) }
+    single { SharedActivityViewModel() }
 }
 
 
 val mainVMModule = module {
-    viewModel { TopArtistViewModel(get(), get()) }
-    viewModel { TopTrackViewModel() }
+    viewModel { TopArtistViewModel(get()) }
+    viewModel { TopTrackViewModel(get(), get()) }
+}
+
+val detailVMModule = module {
     viewModel { DetailWebViewViewModel() }
+    viewModel { DetailTopTrackViewModel(get()) }
 }
 
 
@@ -45,8 +56,13 @@ val dataModule = module {
         .build()
     }
 
+    single { Room.databaseBuilder(get(), LastFMDB::class.java, Const.dbName).build() }
+    single { get<LastFMDB>().lastFMDao }
+
     single { get<Retrofit>().create(ApiService::class.java) }
-    single { Repository(get()) }
+    single { Repository(get(), get(), get(), get() ) }
+
+
 
 }
 

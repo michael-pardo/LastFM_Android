@@ -8,5 +8,9 @@
 
     <color name="colorItem">#456200EE</color>
 
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorAccentBlue">#40E1E5</color>
+    <color name="colorItemDrawer">#b0c7db</color>
+
 
 </resources>

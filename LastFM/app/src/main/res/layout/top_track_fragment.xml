@@ -6,24 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.mistpaag.lastfm.trainee.views.main.TopTrackViewModel" />
+            type="com.mistpaag.lastfm.trainee.views.main.topTrack.TopTrackViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.main.TopTrackFragment">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/toolbar_constraint"
-            android:layout_width="0dp"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        tools:context=".views.main.topTrack.TopTrackFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/recycler_constraint"
@@ -32,17 +21,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_constraint">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_top_tracks"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                tools:itemCount="10"
-                tools:listitem="@layout/top_track_item"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="10"
+                tools:listitem="@layout/top_track_item" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
         android:layout_height="200dp">
 
         <androidx.cardview.widget.CardView
@@ -25,7 +30,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/track_image"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:contentDescription="TODO"
@@ -37,23 +42,91 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
+                    android:layout_height="0dp"
+                    android:background="@color/colorItem"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/track_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/track_name"
+                        app:layout_constraintVertical_bias="0.0">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/listeners_count"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/time_count"
+                            app:srcCompat="@drawable/clock" />
+
+                        <TextView
+                            android:id="@+id/time_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="time"
+                            android:textColor="@color/colorText"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView3"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/listeners_count"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/listeners_count"
+                            app:srcCompat="@drawable/ic_listeners" />
+
+                        <TextView
+                            android:id="@+id/listeners_track_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Listeners"
+                            android:textColor="@color/colorText"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView4"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
