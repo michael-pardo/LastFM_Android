@@ -1,4 +1,4 @@
-package com.mistpaag.lastfm.trainee.models
+package com.mistpaag.lastfm.trainee.models.database
 
 import androidx.room.Embedded
 import androidx.room.Entity

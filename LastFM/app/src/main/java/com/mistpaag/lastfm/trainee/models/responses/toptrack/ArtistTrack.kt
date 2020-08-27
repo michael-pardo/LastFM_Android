@@ -1,7 +1,11 @@
 package com.mistpaag.lastfm.trainee.models.responses.toptrack
 
-data class Artist(
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+data class ArtistTrack(
     val mbid: String,
-    val name: String,
-    val url: String
+    @ColumnInfo(name="artist")val name: String,
+    @ColumnInfo(name="url_artist")val url: String
 )
